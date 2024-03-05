@@ -1,4 +1,4 @@
-# Project README: Classmate Vampire Detection System
+# Project Classmate Vampire Detection System
 
 ## Introduction
 
