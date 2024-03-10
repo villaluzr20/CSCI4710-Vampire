@@ -112,14 +112,47 @@
         </header>
         <nav>
             <a href="main.html">Home</a>
-            <a href="background.html">Signs of a Vampire</a>
-            <a href="cooking.html">CLASSIFIED</a>
+            <a href="signs.html">Signs of a Vampire</a>
+            <a href="results.html">CLASSIFIED</a>
         </nav>
 
         <img class="center" src=nosferatu.jpg alt="Nosferatu" width="300" height="400">
         <section>
-            <h2>Introduction</h2>
-            <p>Does your classmate attend their day classes? Does your classmate hate garlic bread? Do they favor the Winter season or the Summer?</p>
-            <p>In this website, we will delve deep into the history of vampires, display signs that will conclude your suspicions on if your classmate truly is a vampire.</p>
-            <p>Strike Nosferatsu now!</p>
+            <h2>Questionnaire</h2>
+            <form action="results.html" method="post">
+                <p>Does your classmate have a shadow?</p>
+                <input type="radio" name="shadow" value="4"> Yes
+                <input type="radio" name="shadow" value="0"> No
+
+                <p>Is your classmate unusually pale?</p>
+                <input type="radio" name="pale" value="3"> Yes
+                <input type="radio" name="pale" value="0"> No
+
+                <p>Does your classmate hate Garlic?</p>
+                <input type="radio" name="garlic" value="3"> Yes
+                <input type="radio" name="garlic" value="0"> No
+
+                <br>
+                <button type="submit">Submit</button>
+
+            </form>
+
+            <script>
+                function calculateScore() {
+                    // Get the form element
+                    const form = document.getElementById('questionnaireForm');
+        
+                    // Get the selected values for each question
+                    const shadowValue = parseInt(form.elements['shadow'].value);
+                    const paleValue = parseInt(form.elements['pale'].value);
+                    const garlicValue = parseInt(form.elements['garlic'].value);
+        
+                    // Calculate the total score
+                    const totalScore = shadowValue + paleValue + garlicValue;
+        
+                    // Redirect to the results page with the total score as a query parameter
+                    window.location.href = `results.html?score=${totalScore}`;
+                }
+            </script>
     </body>
+<html>
