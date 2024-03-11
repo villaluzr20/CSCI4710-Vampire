@@ -22,13 +22,7 @@ Vampires are often portrayed with pale or ashen complexions due to their nocturn
 
 1. **Observation**: discreetly observe your classmate in various situations, paying attention to the specified features.
    
-2. **Conversation**: incorporate casual references to garlic and monitor their reaction.
-
-3. **Lighting**: note their complexion in different lighting conditions.
-
-4. **Speech Analysis**: engage in conversation to assess their accent and language style.
-
-5. **Compile Evidence**: combine your observations and reactions to make an informed judgment.
+2. **Input**: enter a first and last name, check the circles to see if the signs apply to the classmate and hit confirm to find out if your classmate is a blood-sucking vermin!
 
 ## Disclaimer
 
