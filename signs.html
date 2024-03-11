@@ -3,6 +3,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="vampiremodel.js"></script>
+    <script src="vampireview.js"></script>
+    <script src="vampirecontroller.js"></script>
+    <script src="app.js"></script>
     <head>
         <title>Is My Classmate a Vampire?</title>
     </head>
@@ -73,8 +77,22 @@
             color: #35424a;
         }
 
+        table.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #382424;
+            font-family: 'Georgia', Palantino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+            font-size: 15px;
+            text-align: left;
+        }
+
         section {
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         img {
@@ -113,13 +131,88 @@
         <nav>
             <a href="main.html">Home</a>
             <a href="signs.html">Signs of a Vampire</a>
-            <a href="results.html">CLASSIFIED</a>
+            <a href="classified.html">CLASSIFIED</a>
         </nav>
+        
+        <script>
+            function calculateScore() {
+                // Get the form element
+                const form = document.getElementById('questionnaireForm');
+    
+                // Get the selected values for each question
+                const shadowValue = parseInt(form.elements['shadow'].value);
+                const paleValue = parseInt(form.elements['pale'].value);
+                const garlicValue = parseInt(form.elements['garlic'].value);
 
-        <img class="center" src=nosferatu.jpg alt="Nosferatu" width="300" height="400">
+                // Provides the first and last name of the suspect
+                const firstName = form.elements['firstName'].value;
+                const lastName = form.elements['lastName'].value;
+    
+                // Calculate the total score
+                const totalScore = shadowValue + paleValue + garlicValue;
+    
+                // Redirect to the results page with the total score as a query parameter
+                window.location.href = 'results.html?score=' + totalScore + '&firstName=' + encodeURIComponent(firstName) + '&lastName=' + encodeURIComponent(lastName);
+            }
+            function checkCheckbox(id) {
+                return document.getElementById(id).checked ? 3 : 0;
+            }
+            function calculateStatus(garlic, shadow, complexion) {
+                return garlic + shadow + complexion >= 6 ? "Vampire" : "Not a vampire";
+            }   
+            function alertStatus(status) {
+                window.alert(status);
+            }
+            function storeSession() {
+                const sessionString = sessionStorage.getItem("array1");
+                return sessionString !== null ? JSON.parse(sessionString) : [];
+            }
+            function addPersonToArray(x, y, garlic, shadow, complexion, z) {
+                const rand = Math.floor(Math.random() * 2) +1;
+            }
+            let array = getSession();
+            console.log(array);
+            function isVampire() {
+                const garlic = checkCheckbox('garlic');
+                const shadow = checkCheckbox('shadow');
+                const complexion = checkCheckbox('complexion');
+                const status = calculateStatus(garlic, shadow, complexion);
+                alertStatus(status);
+            }
+            function addVampire() {
+                const garlic = checkCheckbox('garlic');
+                const shadow = checkCheckbox('shadow');
+                const complexion = checkCheckbox('complexion');
+                const status = calculateStatus(garlic, shadow, complexion);
+                const x = document.getElementById('name').value;
+                const y = document.getElementById('lastname').value;
+                const person = addPersonToArray(x, y, garlic, shadow, complexion, status);
+                array.push(person);
+                storesSession(array);
+                console.log(array);
+                alertStatus("submitted!");
+            }
+                            
+        </script>
+
+        <img class="center" src=HuntersDream_03.jpg alt="Nosferatu" width="300" height="400">
         <section>
             <h2>Questionnaire</h2>
-            <form action="results.html" method="post">
+            <p>Answer the following questions to find out if your classmate is a vampire.</p>
+
+            <div class="question">
+            <form id="classmate">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            </form>
+        </section>
+           
+        <form action="results.html" method="post">
                 <p>Does your classmate have a shadow?</p>
                 <input type="radio" name="shadow" value="4"> Yes
                 <input type="radio" name="shadow" value="0"> No
@@ -133,26 +226,10 @@
                 <input type="radio" name="garlic" value="0"> No
 
                 <br>
+                <br>
                 <button type="submit">Submit</button>
 
             </form>
 
-            <script>
-                function calculateScore() {
-                    // Get the form element
-                    const form = document.getElementById('questionnaireForm');
-        
-                    // Get the selected values for each question
-                    const shadowValue = parseInt(form.elements['shadow'].value);
-                    const paleValue = parseInt(form.elements['pale'].value);
-                    const garlicValue = parseInt(form.elements['garlic'].value);
-        
-                    // Calculate the total score
-                    const totalScore = shadowValue + paleValue + garlicValue;
-        
-                    // Redirect to the results page with the total score as a query parameter
-                    window.location.href = `results.html?score=${totalScore}`;
-                }
-            </script>
     </body>
 <html>
