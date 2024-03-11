@@ -21,11 +21,13 @@
             box-sizing: border-box;
         }
 
+
         .column {
             float: left;
             width: 50%;
             padding: 0%;
         }
+
 
         /* Clearfix (clear floats) */
         .row::after {
@@ -33,6 +35,7 @@
             clear: both;
             display: table;
         }
+
 
         body {
             font-family: 'Georgia', Palantino, 'Palatino Linotype', Times, 'Times New Roman', serif;
@@ -46,6 +49,7 @@
             background-color:rgb(192, 192, 177)
         }
 
+
         header {
             text-align: center;
             padding: .5px;
@@ -53,12 +57,14 @@
             color: rgb(0, 0, 0);
         }
 
+
         nav {
             background-color: #520808;
             overflow: hidden;
             text-align: center;
             padding: 10px;
         }
+
 
         nav a{
             color: rgb(223, 188, 188);
@@ -68,14 +74,17 @@
             background-color: #000000;
         }
 
+
         nav a:hover {
             background-color: #ffffff;
             color: #35424a;
         }
 
+
         section {
             margin-top: 10px;
         }
+
 
         img {
             max-width: 100%;
@@ -84,13 +93,16 @@
             margin: 10px auto;
         }
 
+
         a {
             color: #35424a;
             text-decoration: none;}
 
+
         a:hover {
             text-decoration: underline;
         }
+
 
         footer {
             margin-top: 20px;
@@ -99,10 +111,10 @@
             color: rgb(255, 255, 255);
             text-align: center;
         }
-        
+       
     </style>
     </style>
-    
+   
     <body>
         <header>
             <h1>Is My Classmate a Vampire?</h1>
@@ -116,24 +128,26 @@
             <a href="results.html">CLASSIFIED</a>
         </nav>
 
-        <img class="center" src=nosferatu.jpg alt="Nosferatu" width="300" height="400">
-        <section>
-            <h2>Results</h2>
-        <div id="results"></div>
 
-        <script>
-            window.onload = function() {
-                // Get the form data from the URL query string
-                const params = new URLSearchParams(window.location.search);
-                
-                const shadowValue = params.get('shadow');
-                const paleValue = params.get('pale');
-                const garlicValue = params.get('garlic');
-                
-                document.getElementById('results').innerText = `Shadow: ${shadowValue}`;
-                document.getElementById('results').innerText = `Pale: ${paleValue}`;
-                document.getElementById('results').innerText = `Garlic: ${garlicValue}`;
-            };
-        </script>
-        </section>
+        <img class="center" src=HuntersDream_03.jpg alt="Nosferatu" width="300" height="400">
+        <section>
+            <h2>Oh no...</h2>
+
+
+            <script>
+                function displayResults() {
+                    // URL query parameters here
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const score = urlParams.get('score'); // gets the score from the previous page
+   
+                    document.getElementById('result').textContent = `They are a vampire!`;
+                }
+               
+                // calling the function to display the results when the page loads
+                window.onload = displayResults;
+            </script>
+            <div id="result"></div>
+
+
+            <p>Take the test again to reassure that you are not a vampire yourself!</p>
     </body>
