@@ -18,10 +18,6 @@ Traditionally, vampires are repelled by garlic. Casually bring garlic into your 
 
 Vampires are often portrayed with pale or ashen complexions due to their nocturnal lifestyle. Observe your classmate's skin tone, especially in natural light. If they consistently have a remarkably pale or unnatural complexion, it could be a sign of vampiric characteristics.
 
-### 4. Accent
-
-While not always a definitive factor, some folklore suggests that vampires may have a unique or slightly old-fashioned way of speaking. Pay attention to your classmate's accent and language choices. If they display a mysterious or archaic way of expressing themselves, it might be worth considering as part of the overall assessment.
-
 ## How to Use
 
 1. **Observation**: discreetly observe your classmate in various situations, paying attention to the specified features.
