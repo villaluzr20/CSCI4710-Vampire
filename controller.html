@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <head>
         <title>Is My Classmate a Vampire?</title>
     </head>
@@ -84,6 +85,12 @@
             margin: 10px auto;
         }
 
+        #chartContainer {
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
         a {
             color: #35424a;
             text-decoration: none;}
@@ -113,13 +120,98 @@
         <nav>
             <a href="view.html">Home</a>
             <a href="model.html">Signs of a Vampire</a>
-            <a href="controller.html">CLASSIFIED</a>
+            <a href="controller.html">Results</a>
         </nav>
+
+        <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const firstName = urlParams.get('firstName');
+        const lastName = urlParams.get('lastName');
+        const model = urlParams.get('model');
+        const noShadow = urlParams.has('noShadow');
+        const paleComplexion = urlParams.has('paleComplexion');
+        const noGarlic = urlParams.has('noGarlic');
+
+        let humanCount = []; // Start counting from 1 for demonstration
+        let vampireCount = []; // Will be updated based on model decision
+
+        function determineStatus() {
+            if (model === 'threshold') {
+                let score = 0;
+                score += noShadow ? 4 : 0;
+                score += paleComplexion ? 3 : 0;
+                score += noGarlic ? 3 : 0;
+                return score > 6 ? 'Vampire' : 'Human';
+            } else { // Random Guess model
+                return Math.random() > 0.5 ? 'Vampire' : 'Human';
+            }
+        }
+
+        function addRowToTable(name, status) {
+            const table = document.getElementById("resultsTable");
+            const row = table.insertRow(-1); // Insert at the end of the table
+            const nameCell = row.insertCell(0);
+            const statusCell = row.insertCell(1);
+            const actionCell = row.insertCell(2);
+            nameCell.innerHTML = name;
+            statusCell.innerHTML = status;
+            actionCell.innerHTML = '<button onclick="deleteRow(this)">Delete</button>';
+            if (status === 'Vampire') vampireCount++;
+            else humanCount++;
+}
+        function deleteRow(btn) {
+        const row = btn.parentNode.parentNode;
+        const status = row.cells[1].textContent;
+        status === "Vampire" ? vampireCount-- : humanCount--;
+        row.parentNode.removeChild(row);
+        if (status === "Vampire") {
+            localStorage.setItem("vampireCount", vampireCount);
+        }
+        else {
+            localStorage.setItem("humanCount", humanCount);
+        }
+        updateChart();
+    }
+    let chart;
+
+    function initChart(data) {
+        const ctx = document.getElementById('vampireChart').getContext('2d');
+        if (chart) {
+            chart.data.datasets[0].data = data;
+            chart.update();
+        }
+        else {
+            chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Humans', 'Vampires'],
+                    datasets: [{
+                        data: [humanCount, vampireCount],
+                        backgroundColor: ['rgba(0, 255, 0, 0.5)', 'rgba(255, 0, 0, 0.5)'],
+                        borderColor: ['rgba(0, 255, 0, 1)', 'rgba(255, 0, 0, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+    }
+    window.onload = function() {
+        // humanCount = parseInt(localStorage.getItem("humanCount"), 0);
+        // vampireCount = parseInt(localStorage.getItem("vampireCount"), 0);
+        const initialData = [humanCount, vampireCount];
+        initChart(initialData);
+    };
+        </script>
+        <div id="result"></div>
+        <canvas id="vampireChart" width="200" height="200"></canvas>
 
         <img class="center" src=nosferatu.jpg alt="Nosferatu" width="300" height="400">
         <section>
-            <h2>Introduction</h2>
-            <p>Does your classmate attend their day classes? Does your classmate hate garlic bread? Do they favor the Winter season or the Summer?</p>
-            <p>In this website, we will delve deep into the history of vampires, display signs that will conclude your suspicions on if your classmate truly is a vampire.</p>
-            <p>Strike Nosferatsu now!</p>
+            <h2>Pie Chart</h2>
+            <p>This is a pie chart that shows the percentage of classmates that are vampires.</p>
     </body>
