@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to the Classmate Vampire Detection System! This project aims to help you determine if your classmate might be a vampire based on four key features: shadow, garlic, complexion, and accent. Please follow the instructions below to conduct a thorough analysis and make an informed decision.
+Welcome to the Classmate Vampire Detection System! This project aims to help you determine if your classmate might be a vampire based on four key features: shadow, garlic, and complexion. Please follow the instructions below to conduct a thorough analysis and make an informed decision.
 
 ## Features
 
