@@ -113,15 +113,15 @@
         <nav>
             <a href="view.html">Home</a>
             <a href="model.html">Signs of a Vampire</a>
-            <a href="controller.html">Results</a>
+            <a href="classified.html">Classified</a>
         </nav>
 
-        <img class="center" src=nosferatu.jpg alt="Nosferatu" width="300" height="400">
+        <img class="center" src=scary_lab.jpg alt="Nosferatu" width="300" height="400">
         <section>
-            <h2>Introduction</h2>
-            <p>Does your classmate attend their day classes? Does your classmate hate garlic bread? Do they favor the Winter season or the Summer?</p>
-            <p>In this website, we will delve deep into the history of vampires, display signs that will conclude your suspicions on if your classmate truly is a vampire.</p>
-            <p>Strike Nosferatsu now!</p>
+            <h2>Test for Vampirism</h2>
+            <p>These three questions are scientifically proven to determine vampirism.</p>
+            <p>If you suspect anyone of being a member of the undead, check the boxes to confirm your suspicions...<p>
+            <p>Pray that you are wrong...</p>
 
         </section>
 
@@ -140,6 +140,7 @@
                 <input type="checkbox" id="garlic"><br><br>
                 <button type="button" onclick="checkVampire()">Check Student</button>
                 <button type="button" onclick="submitVampire()">Submit</button>
+                <button type="button" onclick="clearLocalStorage()">Clear</button>
             </form>
         </section>
 
@@ -164,6 +165,18 @@
         </footer>
     
         <script>
+            window.onload = function() {
+            // Load data from localStorage on page load
+            var savedData = localStorage.getItem("userData");
+            if (savedData) {
+                var userData = JSON.parse(savedData);
+                userData.forEach(function(data) {
+                    updateResultsTable(data.firstName, data.lastName, data.status);
+                });
+            }
+        };
+
+            
             function checkVampire() {
                 var shadow = document.getElementById("shadow").checked;
                 var pale = document.getElementById("pale").checked;
@@ -189,12 +202,44 @@
                 storeUserData(userData);
                 updateResultsTable(firstName, lastName, userData.status); // Update the table with userData.status
                 alert("Submitted!");
+
+                
+
+                // Calculate human count and vampire count
+                let humanCount = 0;
+                let vampireCount = 0;
+                var tableRows = document.getElementById("resultsTable").getElementsByTagName("tr");
+                for(var i = 0; i < tableRows.length; i++){
+                    var row = tableRows[i];
+                    var cell = row.cells[2]
+                    var cellStatus = cell.textContent.trim();
+                    if (cellStatus === 'Not a Vampire') {
+                        humanCount++ ;
+                    } else if (cellStatus === "Vampire") {
+                        vampireCount++;
+                    }
+                };
+
+                // Prepare data to be passed to the controller
+                const data = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    status: status,
+                    humanCount: humanCount,
+                    vampireCount: vampireCount
+                };
+
+                // Encode data and redirect to controller.html with the data as query parameters
+                window.location.href = "controller.html?data=" + encodeURIComponent(JSON.stringify(data));
+                
             }
     
             function storeUserData(userData) {
-                var array = sessionStorage.getItem("userData") ? JSON.parse(sessionStorage.getItem("userData")) : [];
+                var array = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")) : [];
                 array.push(userData);
-                sessionStorage.setItem("userData", JSON.stringify(array));
+                localStorage.setItem("userData", JSON.stringify(array));
+                
+
             }
 
             function updateResultsTable(firstName, lastName, status) {
@@ -229,6 +274,14 @@
                 }
             }
 
+            function clearLocalStorage() {
+                localStorage.clear();
+                alert("Table has been wiped")
+            }
+
+            
+
+            
         </script>
     </body>
     </html>
